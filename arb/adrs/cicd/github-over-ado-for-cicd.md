@@ -6,7 +6,7 @@ Proposed
 
 ## Context
 
-Microsoft is strategically shifting its focus towards GitHub, planning to invest more in GitHub and gradually divest in Azure DevOps. GitHub offers a robust platform for source control and CI/CD, with widespread adoption and a strong community. This shift aligns with Microsoft's long-term vision and ensures continued support and innovation.
+Microsoft is strategically shifting its focus towards [GitHub](https://github.com/), planning to invest more in GitHub and gradually divest in [Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/user-guide/what-is-azure-devops?view=azure-devops). GitHub offers a robust platform for source control and [CI/CD through GitHub Actions](https://github.com/features/actions), with widespread adoption and a strong community. This shift aligns with Microsoft's long-term vision and ensures continued support and innovation.
 
 ## Decision
 
