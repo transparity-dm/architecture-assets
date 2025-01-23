@@ -12,10 +12,12 @@ Proposed
 
 Microsoft currently provide quickstart IaC templates in both [Terraform examples](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-terraform?pivots=development-environment-azure-cli) and [Bicep examples](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-bicep?tabs=azure-cli).
 
+
 Bicep supports two different modes of deployment, incremental (default) and complete. 
 - In incremental mode, Resource Manager leaves unchanged resources that exist in the resource group but aren't specified in the template. Resources in the template are added to the resource group.
 - In complete mode, Resource Manager deletes resources that exist in the resource group but aren't specified in the template.
 - [More Information](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes)
+
 
 Terraform only supports a single more of deployment which is equivalent to complete mode in Bicep.
 - This means that resources that previously existed in a template will get destroyed in Azure if they are subsequently removed or commented out from the template. This can be destructive if this behaviour is not understood by engineers.
@@ -34,7 +36,7 @@ Where Bicep is required, we can consider using a tool such as CoPilot or other g
 By choosing to use Terraform, there is a risk that Microsoft reduce the amount of support they provide for Terraform including quickstart code snippets for their various Azure resources. If this becomes an apparent problem, this decision can be reviewed. In the meantime, Bicep can be used as a fallback language for customer projects where they already have an existing usage and do not want to mix their technology usages.
 
 ### Training and Certifications
-![HashiCorp Terraform Associate](https://developer.hashicorp.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fterraform-badge-mini-associate.1419a397.svg&w=96&q=75&dpl=dpl_4WrNmtkJJ1iB7CEhHhot9ccc7EK8)
+![HashiCorp Terraform Associate](https://images.credly.com/size/680x680/images/85b9cfc4-257a-4742-878c-4f7ab4a2631b/image.png)
 - A good certification for Terraform is the [HashiCorp Certified Terraform Associate](https://developer.hashicorp.com/terraform/tutorials/certification-003)
 - Learning paths for this exam can be found [here](https://developer.hashicorp.com/terraform/tutorials/certification-003/associate-study-003)
 - Udemy courses on this can be found [here](https://www.udemy.com/course/terraform-associate-practice-exam/)
