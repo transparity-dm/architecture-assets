@@ -41,3 +41,8 @@ By choosing to use Terraform, there is a risk that Microsoft reduce the amount o
 - Learning paths for this exam can be found [here](https://developer.hashicorp.com/terraform/tutorials/certification-003/associate-study-003)
 - Udemy courses on this can be found [here](https://www.udemy.com/course/terraform-associate-practice-exam/)
 - Terraform specifically on Azure information can be found [here](https://learn.microsoft.com/en-us/azure/developer/terraform/)
+
+
+## Notes
+A good example of how to setup IaC for GitHub Actions with Terraform can be found [here](https://github.com/Azure-Samples/terraform-github-actions)
+![Actions Workflow](https://user-images.githubusercontent.com/1248896/189254453-439dd558-fc6c-4377-b01c-d5e54cc49403.png)
