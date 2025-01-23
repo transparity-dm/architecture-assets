@@ -12,6 +12,15 @@ Proposed
 
 Microsoft currently provide quickstart IaC templates in both [Terraform examples](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-terraform?pivots=development-environment-azure-cli) and [Bicep examples](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-bicep?tabs=azure-cli).
 
+Bicep supports two different modes of deployment, incremental (default) and complete. 
+- In incremental mode, Resource Manager leaves unchanged resources that exist in the resource group but aren't specified in the template. Resources in the template are added to the resource group.
+- In complete mode, Resource Manager deletes resources that exist in the resource group but aren't specified in the template.
+- [More Information](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes)
+
+Terraform only supports a single more of deployment which is equivalent to complete mode in Bicep.
+- This means that resources that previously existed in a template will get destroyed in Azure if they are subsequently removed or commented out from the template. This can be destructive if this behaviour is not understood by engineers.
+- Using the Terraform [Plan command](https://developer.hashicorp.com/terraform/cli/commands/plan) can highlight the changes required without them being applied.
+
 ## Decision
 
 After considering the pros and cons of both options, we have decided to use Terraform as our default templating language for IaC projects, due to its ubiquity in the market and the ability to use it across multiple cloud platforms and software products. There is widespread existing market adoption of the language, both in enterprise and the available skills market. Adopting Bicep would limit our ability to engage in opportunities where Terraform was expected.
