@@ -26,8 +26,7 @@ By choosing to use Terraform, there is a risk that Microsoft reduce the amount o
 
 ### Training and Certifications
 ![HashiCorp Terraform Associate](https://developer.hashicorp.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fterraform-badge-mini-associate.1419a397.svg&w=96&q=75&dpl=dpl_4WrNmtkJJ1iB7CEhHhot9ccc7EK8)
-A good certification for Terraform is the [HashiCorp Certified Terraform Associate](https://developer.hashicorp.com/terraform/tutorials/certification-003)
-Learning paths for this exam can be found [here](https://developer.hashicorp.com/terraform/tutorials/certification-003/associate-study-003)
-Udemy courses on this can be found [here](https://www.udemy.com/course/terraform-associate-practice-exam/)
-
-Terraform specifically on Azure information can be found [here](https://learn.microsoft.com/en-us/azure/developer/terraform/)
+- A good certification for Terraform is the [HashiCorp Certified Terraform Associate](https://developer.hashicorp.com/terraform/tutorials/certification-003)
+- Learning paths for this exam can be found [here](https://developer.hashicorp.com/terraform/tutorials/certification-003/associate-study-003)
+- Udemy courses on this can be found [here](https://www.udemy.com/course/terraform-associate-practice-exam/)
+- Terraform specifically on Azure information can be found [here](https://learn.microsoft.com/en-us/azure/developer/terraform/)
