@@ -10,7 +10,7 @@ Proposed
 
 [Terraform](https://www.terraform.io/) is an open-source Infrastructure as Code (IaC) tool developed by HashiCorp that allows you to define and provision infrastructure using a declarative configuration language. 
 
-Terraform state is used to reconcile deployed resources with Terraform configurations. State allows Terraform to know what Azure resources to add, update, or delete.
+[Terraform state](https://developer.hashicorp.com/terraform/language/state) is used to reconcile deployed resources with Terraform configurations. State allows Terraform to know what Azure resources to add, update, or delete.
 
 By default, Terraform state is stored locally, which isn't ideal for the following reasons:
 
@@ -71,6 +71,8 @@ You can now run this script with custom parameters like this:
 Storing these scripts in source control ensures that the setup process is well-documented, versioned, and accessible to all team members, promoting consistency and collaboration.
 
 Once created, the Terraform configuration should be configured with a backend configuration block that specifies an azurerm backend - see the [Microsoft Learn example scripts](https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=powershell#3-configure-terraform-backend-state) for a concise way of configuring this.
+
+> TODO: Eventually a set of template scripts will be authored and linked to from this ADR to provide a better head-start for engineers.
 
 ## Consequences
 
