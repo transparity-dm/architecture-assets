@@ -46,11 +46,19 @@ param (
 # Login to Azure
 Connect-AzAccount
 
-# Create Resource Group
-New-AzResourceGroup -Name $resourceGroupName -Location $location
+# Check if Resource Group exists
+$resourceGroup = Get-AzResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
+if (-not $resourceGroup) {
+    # Create Resource Group
+    New-AzResourceGroup -Name $resourceGroupName -Location $location
+}
 
-# Create Storage Account
-New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName Standard_LRS -Kind StorageV2
+# Check if Storage Account exists
+$storageAccount = Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -ErrorAction SilentlyContinue
+if (-not $storageAccount) {
+    # Create Storage Account
+    New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName Standard_LRS -Kind StorageV2
+}
 
 # Get Storage Account Key
 $storageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $storageAccountName).Value[0]
@@ -58,8 +66,12 @@ $storageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupN
 # Create Storage Context
 $storageContext = New-AzStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageAccountKey
 
-# Create Storage Container
-New-AzStorageContainer -Name $containerName -Context $storageContext -Permission Off
+# Check if Storage Container exists
+$container = Get-AzStorageContainer -Name $containerName -Context $storageContext -ErrorAction SilentlyContinue
+if (-not $container) {
+    # Create Storage Container
+    New-AzStorageContainer -Name $containerName -Context $storageContext -Permission Off
+}
 ```
 
 You can now run this script with custom parameters like this:
