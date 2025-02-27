@@ -44,5 +44,5 @@ By choosing to use Terraform, there is a risk that Microsoft reduce the amount o
 
 
 ## Notes
-A good example of how to setup IaC for GitHub Actions with Terraform can be found [here](https://github.com/Azure-Samples/terraform-github-actions)
+A good example of how to setup IaC for GitHub Actions with Terraform can be found [here]([https://github.com/Azure-Samples/terraform-github-actions](https://github.com/dmeineck/transparity-architecture))
 ![Actions Workflow](https://user-images.githubusercontent.com/1248896/189254453-439dd558-fc6c-4377-b01c-d5e54cc49403.png)
