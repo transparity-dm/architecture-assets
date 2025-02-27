@@ -17,6 +17,8 @@ Establishing a controlled CI/CD workflow that runs checks before executing Terra
 
 We will use the [Azure GitHub Actions Workflows for Terraform](https://github.com/Azure-Samples/terraform-github-actions) as the model architecture to follow for all CI/CD pipelines running on GitHub repositories.
 
+A [modified version of this template example can be found here](https://github.com/dmeineck/transparity-architecture) that provides both GitHub Actions and Azure DevOps CI/CD pipelines - along with automation using idempotent PowerShell scripts of Azure Storage for the shared Terraform state file.
+
 ### From the repo readme:
 
 ![Example GitHub Actions workflow](https://user-images.githubusercontent.com/1248896/189254453-439dd558-fc6c-4377-b01c-d5e54cc49403.png)
@@ -39,10 +41,6 @@ We will use the [Azure GitHub Actions Workflows for Terraform](https://github.co
 4. **Automated Drift Detection**: Regularly scheduled workflows to detect configuration drift ensure that the infrastructure remains consistent with the defined state, helping to maintain stability and reliability over time.
 
 5. **Increased Deployment Confidence**: With automated checks and reviews in place, the team can have greater confidence in the deployment process, knowing that potential issues have been addressed before changes are applied to the production environment.
-
-## Notes
-
-> TODO: A corresponding ADR on how best to achieve this using Azure DevOps is required.
 
 Related ADRs:
 
