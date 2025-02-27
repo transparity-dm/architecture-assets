@@ -27,64 +27,9 @@ Azure Storage will be used as the recommended location for Terraform state file 
 ### Dependency Loop Challenge
 There is a catch-22 style situation with Terraform because a team needs a storage account to store the Terraform state file, but also needs Terraform to create that storage account. This creates a dependency loop where Terraform needs to manage its own state, but the state storage infrastructure isn't available until Terraform provisions it.
 
-To resolve this, the team can manually create the initial storage account and container using the Azure portal or CLI. Once the storage is set up, they can configure Terraform to use it for state management, allowing Terraform to manage the rest of the infrastructure. This initial manual step breaks the loop and enables automated infrastructure management going forward.
+To resolve this, the team can utilise an approach using idempotent Powershell scripts to standup the infrastructure required to manage Terraform state. An example repository of this setup within CI/CD pipelines for both GitHub Actions and Azure DevOps can be [found here](https://github.com/dmeineck/transparity-architecture). This example repository includes the setup of the Azure Storage for Terraform State along with the usage of that storage within the CI/CD for Terraform.
 
-It is therefore recommended that Powershell scripts for standing up and configuring the initial Terraform State file are stored in source control alongside the Terraform, to allow an infrastructure to be stood up from a ground-zero scenario.
-
-### Example Scripts
-
-Here is an example PowerShell script that provisions the Azure resources required for Terraform state management. This file along with the parameters used to invoke it should be stored in a repo so that the steps for fully standing up the environment are documented at source.
-
-```powershell
-param (
-    [string]$resourceGroupName = "devops",
-    [string]$location = "UK South",
-    [string]$storageAccountName = "tfstate$(Get-Random)",
-    [string]$containerName = "tfstate"
-)
-
-# Login to Azure
-Connect-AzAccount
-
-# Check if Resource Group exists
-$resourceGroup = Get-AzResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
-if (-not $resourceGroup) {
-    # Create Resource Group
-    New-AzResourceGroup -Name $resourceGroupName -Location $location
-}
-
-# Check if Storage Account exists
-$storageAccount = Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -ErrorAction SilentlyContinue
-if (-not $storageAccount) {
-    # Create Storage Account
-    New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName Standard_LRS -Kind StorageV2
-}
-
-# Get Storage Account Key
-$storageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -Name $storageAccountName).Value[0]
-
-# Create Storage Context
-$storageContext = New-AzStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageAccountKey
-
-# Check if Storage Container exists
-$container = Get-AzStorageContainer -Name $containerName -Context $storageContext -ErrorAction SilentlyContinue
-if (-not $container) {
-    # Create Storage Container
-    New-AzStorageContainer -Name $containerName -Context $storageContext -Permission Off
-}
-```
-
-You can now run this script with custom parameters like this:
-
-```powershell
-.\Setup-TerraformStorage.ps1 -resourceGroupName "devops" -location "UK South" -storageAccountName "mystorageacct" -containerName "tfstate"
-```
-
-Storing these scripts in source control ensures that the setup process is well-documented, versioned, and accessible to all team members, promoting consistency and collaboration.
-
-Once created, the Terraform configuration should be configured with a backend configuration block that specifies an azurerm backend - see the [Microsoft Learn example scripts](https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=powershell#3-configure-terraform-backend-state) for a concise way of configuring this.
-
-> TODO: Eventually a set of template scripts will be authored and linked to from this ADR to provide a better head-start for engineers.
+Once created, the Terraform configuration should be configured with a backend configuration block that specifies an azurerm backend - see the [Microsoft Learn example scripts](https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=powershell#3-configure-terraform-backend-state) for a concise way of configuring this, or just refer to the [templated repo example](https://github.com/dmeineck/transparity-architecture).
 
 ## Consequences
 
@@ -95,12 +40,10 @@ Once created, the Terraform configuration should be configured with a backend co
 4. **Scalability**: Azure Storage can handle large amounts of data and high transaction volumes, making it suitable for growing infrastructure needs.
 
 ### Negative Consequences
-1. **Initial Manual Setup**: The initial manual creation of the storage account and container introduces a dependency on manual steps, which can be error-prone and time-consuming.
-2. **Complexity in Management**: Managing access controls and permissions for the storage account requires careful planning and ongoing maintenance to ensure security and compliance.
-3. **Cost**: Using Azure Storage incurs costs based on storage capacity, transactions, and data transfer, which need to be accounted for in the project budget.
+1. **Complexity in Management**: Managing access controls and permissions for the storage account requires careful planning and ongoing maintenance to ensure security and compliance.
+2. **Cost**: Using Azure Storage incurs costs based on storage capacity, transactions, and data transfer, which need to be accounted for in the project budget.
 
 ## Notes
 
-- **Documentation**: Ensure that the process for setting up the initial storage account and container is well-documented and included in the project's onboarding materials and stored in the appropriate source code repository. This helps new team members understand the setup process and reduces the risk of errors.
-- **Automation**: Consider automating the initial setup process using scripts or templates that can be executed with minimal manual intervention. This can help streamline the setup process and reduce the potential for human error.
+- **Documentation / Automation **: Ensure that the process for setting up the initial storage account and container is well-documented and included in the project's onboarding materials and stored in the appropriate source code repository. This helps new team members understand the setup process and reduces the risk of errors. Ideally use the templated repo example mentioned earlier to automatically standup the environment using scripts stored in the same source code repository.
 - **Access Management**: Regularly review and update access controls for the storage account to ensure that only authorized personnel have access to the Terraform state file. This helps maintain security and compliance.
