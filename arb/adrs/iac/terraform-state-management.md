@@ -27,9 +27,9 @@ Azure Storage will be used as the recommended location for Terraform state file 
 ### Dependency Loop Challenge
 There is a catch-22 style situation with Terraform because a team needs a storage account to store the Terraform state file, but also needs Terraform to create that storage account. This creates a dependency loop where Terraform needs to manage its own state, but the state storage infrastructure isn't available until Terraform provisions it.
 
-To resolve this, the team can utilise an approach using idempotent Powershell scripts to standup the infrastructure required to manage Terraform state. An example repository of this setup within CI/CD pipelines for both GitHub Actions and Azure DevOps can be [found here](https://github.com/dmeineck/transparity-architecture). This example repository includes the setup of the Azure Storage for Terraform State along with the usage of that storage within the CI/CD for Terraform.
+To resolve this, the team can utilise an approach using idempotent Powershell scripts to standup the infrastructure required to manage Terraform state. An example repository of this setup within CI/CD pipelines for both GitHub Actions and Azure DevOps can be [found here](https://github.com/dmeineck/terraform-cicd-template). This example repository includes the setup of the Azure Storage for Terraform State along with the usage of that storage within the CI/CD for Terraform.
 
-Once created, the Terraform configuration should be configured with a backend configuration block that specifies an azurerm backend - see the [Microsoft Learn example scripts](https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=powershell#3-configure-terraform-backend-state) for a concise way of configuring this, or just refer to the [templated repo example](https://github.com/dmeineck/transparity-architecture).
+Once created, the Terraform configuration should be configured with a backend configuration block that specifies an azurerm backend - see the [Microsoft Learn example scripts](https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=powershell#3-configure-terraform-backend-state) for a concise way of configuring this, or just refer to the [templated repo example](https://github.com/dmeineck/terraform-cicd-template).
 
 ## Consequences
 
